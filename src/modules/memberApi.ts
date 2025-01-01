@@ -1,8 +1,7 @@
 import Member from '../model/member';
-import Book from '../model/book';
-import ITBook from '../model/ITBook';
-import CookBook from '../model/cookBook';
-import ComicBook from '../model/comicBook';
+import { Book, ITBook, CookBook, ComicBook } from '../model/book';
+import exp from 'constants';
+import { get } from 'http';
 
 const memberList: Member[] = [
   new Member(1, 'user1', '1234', '홍길동', [], ['C']),
@@ -61,9 +60,31 @@ export function getBookListAll(): Book[] {
   return bookList;
 }
 
-export function getMyBookList(memberId: string): Book[] {
-  const myBookList = bookList.filter(
-    (book) => book.owner?.memberId === memberId
-  );
-  return myBookList;
+export function getBookList(memberId?: string): Book[] {
+  return bookList.filter((book) => {
+    // 특정 회원의 책 목록을 가져오는 경우
+    if (memberId) {
+      return book.owner?.memberId === memberId;
+    }
+    // 대출 가능한 책 목록을 가져오는 경우
+    return book.owner === null;
+  });
+}
+
+export function borrowBook(memberId: string, bno: number): boolean {
+  try {
+    const bIndex = bookList.findIndex((book) => book.bno === bno);
+    const mIndex = memberList.findIndex(
+      (member) => member.memberId === memberId
+    );
+    // 1) memberList - borrowBookList에 해당 책 넣어주기
+    memberList[mIndex].borrowBookList.push(bookList[bIndex]);
+    // 2) bookList - owner 추가해주기
+    bookList[bIndex].owner = memberList[mIndex];
+  } catch (error) {
+    console.log('대출에 실패하였습니다.');
+    return false;
+  }
+  console.log('대출이 완료되었습니다.');
+  return true;
 }

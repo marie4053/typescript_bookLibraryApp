@@ -16,12 +16,21 @@ function runApp2(member) {
             const menuNum = Number(input);
             switch (menuNum) {
                 case 1:
-                    showBookList();
+                    console.log(`\n<전체 도서 리스트>`);
+                    const bookListAll = (0, memberApi_1.getBookListAll)();
+                    showBookList(bookListAll);
                     break;
                 case 2:
-                    showMyBookList(member);
+                    console.log(`\n<내가 대여한 도서 보기>`);
+                    const myBookList = (0, memberApi_1.getBookList)(member.memberId);
+                    showBookList(myBookList, member);
                     break;
                 case 3:
+                    console.log(`\n<대출 가능한 도서 리스트>`);
+                    const availableBookList = (0, memberApi_1.getBookList)();
+                    showBookList(availableBookList);
+                    const bno = Number(readline_sync_1.default.question('빌릴 책을 입력하세요.\n> '));
+                    (0, memberApi_1.borrowBook)(member.memberId, bno);
                     break;
                 case 4:
                     break;
@@ -54,20 +63,18 @@ function printMenu(member) {
     console.log('6. 사용자 정보 보기');
     console.log('99. 종료하기');
 }
-function showBookList() {
-    console.log('<전체 도서 리스트>');
-    const bookList = (0, memberApi_1.getBookListAll)();
-    const result = bookList
-        .map((book) => `${book.info()}, ${book.owner
-        ? `대출불가(소유자: ${book.owner.memberId}, ${book.owner.name})`
-        : '대출 가능'}`)
-        .join('\n');
-    console.log(result);
-}
-function showMyBookList(member) {
-    console.log('<내가 대여한 도서 보기>');
-    const myBookList = (0, memberApi_1.getMyBookList)(member.memberId);
-    const result = myBookList.map((book) => book.info()).join('\n');
-    console.log(result);
+function showBookList(bookList, member) {
+    if (!member) {
+        const result = bookList
+            .map((book) => `${book.info()}, ${book.owner
+            ? `대출불가(소유자: ${book.owner.memberId}, ${book.owner.name})`
+            : '대출 가능'}`)
+            .join('\n');
+        console.log(result);
+    }
+    else {
+        const result = bookList.map((book) => book.info()).join('\n');
+        console.log(result);
+    }
 }
 exports.default = runApp2;

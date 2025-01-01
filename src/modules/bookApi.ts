@@ -1,7 +1,4 @@
-import Book from '../model/book';
-import ITBook from '../model/ITBook';
-import CookBook from '../model/cookBook';
-import ComicBook from '../model/comicBook';
+import { Book, ITBook, CookBook, ComicBook } from '../model/book';
 
 const books: Book[] = [];
 

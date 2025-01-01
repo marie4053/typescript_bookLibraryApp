@@ -1,11 +1,12 @@
 import reader from 'readline-sync';
 import Member from '../model/member';
-import Book from '../model/book';
+import { Book } from '../model/book';
 import {
   getBookListAll,
-  getMyBookList,
+  getBookList,
   getMemberList,
   getMemberListAll,
+  borrowBook,
 } from '../modules/memberApi';
 // import {} from '../modules/Api';
 
@@ -20,12 +21,21 @@ function runApp2(member: Member): number {
       const menuNum = Number(input);
       switch (menuNum) {
         case 1:
-          showBookList();
+          console.log(`\n<전체 도서 리스트>`);
+          const bookListAll = getBookListAll();
+          showBookList(bookListAll);
           break;
         case 2:
-          showMyBookList(member);
+          console.log(`\n<내가 대여한 도서 보기>`);
+          const myBookList = getBookList(member.memberId);
+          showBookList(myBookList, member);
           break;
         case 3:
+          console.log(`\n<대출 가능한 도서 리스트>`);
+          const availableBookList = getBookList();
+          showBookList(availableBookList);
+          const bno = Number(reader.question('빌릴 책을 입력하세요.\n> '));
+          borrowBook(member.memberId, bno);
           break;
         case 4:
           break;
@@ -61,29 +71,23 @@ function printMenu(member: Member): void {
   console.log('99. 종료하기');
 }
 
-function showBookList(): void {
-  console.log('');
-  console.log('<전체 도서 리스트>');
-  const bookList = getBookListAll();
-  const result = bookList
-    .map(
-      (book) =>
-        `${book.info()}, ${
-          book.owner
-            ? `대출불가(소유자: ${book.owner.memberId}, ${book.owner.name})`
-            : '대출 가능'
-        }`
-    )
-    .join('\n');
-  console.log(result);
-}
-
-function showMyBookList(member: Member): void {
-  console.log('');
-  console.log('<내가 대여한 도서 보기>');
-  const myBookList = getMyBookList(member.memberId);
-  const result = myBookList.map((book) => book.info()).join('\n');
-  console.log(result);
+function showBookList(bookList: Book[], member?: Member): void {
+  if (!member) {
+    const result = bookList
+      .map(
+        (book) =>
+          `${book.info()}, ${
+            book.owner
+              ? `대출불가(소유자: ${book.owner.memberId}, ${book.owner.name})`
+              : '대출 가능'
+          }`
+      )
+      .join('\n');
+    console.log(result);
+  } else {
+    const result = bookList.map((book) => book.info()).join('\n');
+    console.log(result);
+  }
 }
 
 export default runApp2;
