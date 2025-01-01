@@ -19,6 +19,7 @@ function runApp2(member) {
                     showBookList();
                     break;
                 case 2:
+                    showMyBookList(member);
                     break;
                 case 3:
                     break;
@@ -54,12 +55,19 @@ function printMenu(member) {
     console.log('99. 종료하기');
 }
 function showBookList() {
+    console.log('<전체 도서 리스트>');
     const bookList = (0, memberApi_1.getBookListAll)();
     const result = bookList
         .map((book) => `${book.info()}, ${book.owner
         ? `대출불가(소유자: ${book.owner.memberId}, ${book.owner.name})`
         : '대출 가능'}`)
         .join('\n');
+    console.log(result);
+}
+function showMyBookList(member) {
+    console.log('<내가 대여한 도서 보기>');
+    const myBookList = (0, memberApi_1.getMyBookList)(member.memberId);
+    const result = myBookList.map((book) => book.info()).join('\n');
     console.log(result);
 }
 exports.default = runApp2;

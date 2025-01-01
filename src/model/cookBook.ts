@@ -14,7 +14,7 @@ export default class CookBook extends Book {
 
   public info(): string {
     return `${this.bno}, CookBook, ${this.title}, ${this.writer}, ${
-      this.coupon ? '요리쿠폰 있음' : '요리쿠폰 없음'
+      this.coupon ? '요리쿠폰 없음' : '요리쿠폰 있음'
     }`;
   }
 

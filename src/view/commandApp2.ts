@@ -3,6 +3,7 @@ import Member from '../model/member';
 import Book from '../model/book';
 import {
   getBookListAll,
+  getMyBookList,
   getMemberList,
   getMemberListAll,
 } from '../modules/memberApi';
@@ -22,6 +23,7 @@ function runApp2(member: Member): number {
           showBookList();
           break;
         case 2:
+          showMyBookList(member);
           break;
         case 3:
           break;
@@ -60,6 +62,8 @@ function printMenu(member: Member): void {
 }
 
 function showBookList(): void {
+  console.log('');
+  console.log('<전체 도서 리스트>');
   const bookList = getBookListAll();
   const result = bookList
     .map(
@@ -71,6 +75,14 @@ function showBookList(): void {
         }`
     )
     .join('\n');
+  console.log(result);
+}
+
+function showMyBookList(member: Member): void {
+  console.log('');
+  console.log('<내가 대여한 도서 보기>');
+  const myBookList = getMyBookList(member.memberId);
+  const result = myBookList.map((book) => book.info()).join('\n');
   console.log(result);
 }
 

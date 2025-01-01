@@ -14,14 +14,14 @@ const memberList: Member[] = [
 
 const bookList: Book[] = [
   new ITBook(100, '모던 자바스크립트', '이웅모', memberList[0], 'Javascript'),
-  new ITBook(101, '자바의 정석', '남궁성', memberList[0], 'Java'),
-  new ITBook(102, '열혈C언어', '윤성우', memberList[0], 'C'),
+  new ITBook(101, '자바의 정석', '남궁성', memberList[1], 'Java'),
+  new ITBook(102, '열혈C언어', '윤성우', null, 'C'),
   new ITBook(103, '타입스크립트 교과서', '조현영', null, 'Typescript'),
   new ITBook(104, 'TheC++언어', '비야네스', memberList[1], 'C++'),
-  new CookBook(200, '백종원의 조리비책', '백종원', memberList[1], false),
+  new CookBook(200, '백종원의 조리비책', '백종원', memberList[0], false),
   new CookBook(203, '비벼야 산다', '유비빔', null, true),
   new CookBook(205, '얼마나 맛있게요', '이혜정', null, false),
-  new ComicBook(300, '원피스-50년간 여행', '오다', null, 50),
+  new ComicBook(300, '원피스-50년간 여행', '오다', memberList[0], 50),
   new ComicBook(301, '신의탑', '시우', memberList[2], 100),
   new ComicBook(302, '귀멸의 칼날', '악어', memberList[2], 0),
 ];
@@ -59,4 +59,11 @@ export function getMemberList(memberId: string): Member {
 
 export function getBookListAll(): Book[] {
   return bookList;
+}
+
+export function getMyBookList(memberId: string): Book[] {
+  const myBookList = bookList.filter(
+    (book) => book.owner?.memberId === memberId
+  );
+  return myBookList;
 }

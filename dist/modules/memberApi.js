@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMemberListAll = getMemberListAll;
 exports.getMemberList = getMemberList;
 exports.getBookListAll = getBookListAll;
+exports.getMyBookList = getMyBookList;
 const member_1 = __importDefault(require("../model/member"));
 const ITBook_1 = __importDefault(require("../model/ITBook"));
 const cookBook_1 = __importDefault(require("../model/cookBook"));
@@ -18,14 +19,14 @@ const memberList = [
 // 책 번호 enum?
 const bookList = [
     new ITBook_1.default(100, '모던 자바스크립트', '이웅모', memberList[0], 'Javascript'),
-    new ITBook_1.default(101, '자바의 정석', '남궁성', memberList[0], 'Java'),
-    new ITBook_1.default(102, '열혈C언어', '윤성우', memberList[0], 'C'),
+    new ITBook_1.default(101, '자바의 정석', '남궁성', memberList[1], 'Java'),
+    new ITBook_1.default(102, '열혈C언어', '윤성우', null, 'C'),
     new ITBook_1.default(103, '타입스크립트 교과서', '조현영', null, 'Typescript'),
     new ITBook_1.default(104, 'TheC++언어', '비야네스', memberList[1], 'C++'),
-    new cookBook_1.default(200, '백종원의 조리비책', '백종원', memberList[1], false),
+    new cookBook_1.default(200, '백종원의 조리비책', '백종원', memberList[0], false),
     new cookBook_1.default(203, '비벼야 산다', '유비빔', null, true),
     new cookBook_1.default(205, '얼마나 맛있게요', '이혜정', null, false),
-    new comicBook_1.default(300, '원피스-50년간 여행', '오다', null, 50),
+    new comicBook_1.default(300, '원피스-50년간 여행', '오다', memberList[0], 50),
     new comicBook_1.default(301, '신의탑', '시우', memberList[2], 100),
     new comicBook_1.default(302, '귀멸의 칼날', '악어', memberList[2], 0),
 ];
@@ -55,4 +56,8 @@ function getMemberList(memberId) {
 // }
 function getBookListAll() {
     return bookList;
+}
+function getMyBookList(memberId) {
+    const myBookList = bookList.filter((book) => book.owner?.memberId === memberId);
+    return myBookList;
 }
