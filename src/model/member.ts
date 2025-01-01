@@ -1,4 +1,4 @@
-class Member {
+export default class Member {
   constructor(
     public mno: number,
     public memberId: string,
@@ -8,5 +8,3 @@ class Member {
     public programLangList: string[]
   ) {}
 }
-
-export default Member;

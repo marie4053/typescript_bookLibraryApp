@@ -1,13 +1,13 @@
 import Member from './member';
 import Book from './book';
 
-class CookBook extends Book {
+export default class CookBook extends Book {
   constructor(
     bno: number,
     title: string,
     writer: string,
     owner: Member | null,
-    private coupon: boolean = true
+    private coupon: boolean = false
   ) {
     super(bno, title, writer, owner);
   }
@@ -23,6 +23,6 @@ class CookBook extends Book {
   }
 
   public useCoupon(): void {
-    this.coupon = false;
+    this.coupon = true;
   }
 }

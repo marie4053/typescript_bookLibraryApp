@@ -1,6 +1,6 @@
 import Member from './member';
 
-abstract class Book {
+export default abstract class Book {
   constructor(
     protected bno: number,
     protected title: string,
@@ -15,5 +15,3 @@ abstract class Book {
   }
   public abstract info(): string;
 }
-
-export default Book;

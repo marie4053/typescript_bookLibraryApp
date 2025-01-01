@@ -1,7 +1,7 @@
 import Member from './member';
 import Book from './book';
 
-class ITBook extends Book {
+export default class ITBook extends Book {
   constructor(
     bno: number,
     title: string,

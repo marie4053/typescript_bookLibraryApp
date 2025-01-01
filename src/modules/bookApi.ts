@@ -1,6 +1,9 @@
-import Member from '../model/member';
+import Book from '../model/book';
+import ITBook from '../model/ITBook';
+import CookBook from '../model/cookBook';
+import ComicBook from '../model/comicBook';
 
-const member: Member[] = [];
+const books: Book[] = [];
 
 // export function getTodoListAll(): TodoItem[] {
 //   return todoList;
@@ -19,6 +22,6 @@ const member: Member[] = [];
 //   return true;
 // }
 
-// export function delteTodoList(): boolean {
+// export function deleteTodoList(): boolean {
 //   return true;
 // }
