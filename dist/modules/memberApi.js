@@ -9,11 +9,10 @@ exports.removeBook = removeBook;
 exports.getBookListAll = getBookListAll;
 exports.getBookList = getBookList;
 exports.borrowBook = borrowBook;
-exports.returnBook = returnBook;
 const member_1 = __importDefault(require("../model/member"));
 const book_1 = require("../model/book");
 const memberList = [
-    new member_1.default(1, 'user1', '1234', '홍길동', [], ['C']),
+    new member_1.default(1, 'user1', '1234', '홍길동', [], ['C', 'Java']),
     new member_1.default(2, 'user2', '1234', '최길동', [], []),
     new member_1.default(3, 'user3', '1234', '박길동', [], ['C']),
 ];
@@ -73,22 +72,23 @@ function borrowBook(memberId, bno) {
     console.log('대출이 완료되었습니다.');
     return true;
 }
-function returnBook(memberId, bno) {
-    try {
-        const mIndex = memberList.findIndex((member) => member.memberId === memberId);
-        const myBookList = memberList[mIndex].borrowBookList;
-        console.log(myBookList);
-        const bIndex = bookList.findIndex((book) => book.bno === bno);
-        // const bookIndex = memberList[mIndex].borrowBookList.findIndex((book)=>)
-        // 1) memberList - borrowBookList에 해당 책 빼주기
-        // memberList[mIndex].borrowBookList.splice(bookList[bIndex]);
-        // 2) bookList - owner에 null
-        bookList[bIndex].owner = null;
-        console.log(`${bookList[mIndex]}이 반납되었습니다.`);
-    }
-    catch (error) {
-        console.log('반납에 실패하였습니다.');
-        return false;
-    }
-    return true;
-}
+// export function returnBook(memberId: string, bno: number): boolean {
+//   try {
+//     const mIndex = memberList.findIndex(
+//       (member) => member.memberId === memberId
+//     );
+//     const myBookList = memberList[mIndex].borrowBookList;
+//     console.log(myBookList[0]);
+//     const bIndex = bookList.findIndex((book) => book.bno === bno);
+//     // const bookIndex = memberList[mIndex].borrowBookList.findIndex((book)=>)
+//     // 1) memberList - borrowBookList에 해당 책 빼주기
+//     // memberList[mIndex].borrowBookList.splice(bookList[bIndex]);
+//     // 2) bookList - owner에 null
+//     bookList[bIndex].owner = null;
+//     console.log(`${bookList[mIndex]}이 반납되었습니다.`);
+//   } catch (error) {
+//     console.log('반납에 실패하였습니다.');
+//     return false;
+//   }
+//   return true;
+// }

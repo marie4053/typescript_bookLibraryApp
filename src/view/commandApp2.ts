@@ -52,6 +52,8 @@ function runApp2(member: Member): number {
         case 5:
           break;
         case 6:
+          console.log(`\n<사용자 정보보기>`);
+          showMemberList();
           break;
         case 99:
           return 99;
@@ -97,6 +99,22 @@ function showBookList(bookList: Book[], member?: Member): void {
   } else {
     const result = bookList.map((book) => book.info()).join('\n');
     console.log(result);
+  }
+}
+
+function showMemberList(): void {
+  const memberList = getMemberListAll();
+  for (let member of memberList) {
+    console.log(
+      `${member.mno}, ${member.memberId}, ${member.name}, [${member.programLangList}]`
+    );
+    if (member.borrowBookList.length === 0) {
+      console.log(`└ 빌린 책 없음`);
+      continue;
+    }
+    member.borrowBookList.forEach((book) => {
+      console.log(`└ ${book.info()}`);
+    });
   }
 }
 

@@ -2,7 +2,7 @@ import Member from '../model/member';
 import { Book, ITBook, CookBook, ComicBook } from '../model/book';
 
 const memberList: Member[] = [
-  new Member(1, 'user1', '1234', '홍길동', [], ['C']),
+  new Member(1, 'user1', '1234', '홍길동', [], ['C', 'Java']),
   new Member(2, 'user2', '1234', '최길동', [], []),
   new Member(3, 'user3', '1234', '박길동', [], ['C']),
 ];

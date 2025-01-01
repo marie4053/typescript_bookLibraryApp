@@ -30,18 +30,21 @@ function runApp2(member) {
                     showBookList(availableBookList);
                     const bnoBorrow = Number(readline_sync_1.default.question('빌릴 책을 입력하세요.\n> '));
                     (0, memberApi_1.borrowBook)(member.memberId, bnoBorrow);
-                    // removeBook(1, 100);
                     break;
                 case 4:
-                    console.log(`\n<반납할 도서 리스트>`);
-                    const toReturnBookList = (0, memberApi_1.getBookList)(member.memberId);
-                    showBookList(toReturnBookList, member);
-                    const bnoToReturn = Number(readline_sync_1.default.question('반납할 책을 입력하세요.\n> '));
-                    (0, memberApi_1.returnBook)(member.memberId, bnoToReturn);
+                    // console.log(`\n<반납할 도서 리스트>`);
+                    // const toReturnBookList = getBookList(member.memberId);
+                    // showBookList(toReturnBookList, member);
+                    // const bnoToReturn = Number(
+                    //   reader.question('반납할 책을 입력하세요.\n> ')
+                    // );
+                    // returnBook(member.memberId, bnoToReturn);
                     break;
                 case 5:
                     break;
                 case 6:
+                    console.log(`\n<사용자 정보보기>`);
+                    showMemberList();
                     break;
                 case 99:
                     return 99;
@@ -80,6 +83,19 @@ function showBookList(bookList, member) {
     else {
         const result = bookList.map((book) => book.info()).join('\n');
         console.log(result);
+    }
+}
+function showMemberList() {
+    const memberList = (0, memberApi_1.getMemberListAll)();
+    for (let member of memberList) {
+        console.log(`${member.mno}, ${member.memberId}, ${member.name}, [${member.programLangList}]`);
+        if (member.borrowBookList.length === 0) {
+            console.log(`└ 빌린 책 없음`);
+            continue;
+        }
+        member.borrowBookList.forEach((book) => {
+            console.log(`└ ${book.info()}`);
+        });
     }
 }
 exports.default = runApp2;
