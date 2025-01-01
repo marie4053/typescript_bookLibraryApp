@@ -12,7 +12,7 @@ const memberList: Member[] = [
 
 // 책 번호 enum?
 
-const books: Book[] = [
+const bookList: Book[] = [
   new ITBook(100, '모던 자바스크립트', '이웅모', memberList[0], 'Javascript'),
   new ITBook(101, '자바의 정석', '남궁성', memberList[0], 'Java'),
   new ITBook(102, '열혈C언어', '윤성우', memberList[0], 'C'),
@@ -56,3 +56,7 @@ export function getMemberList(memberId: string): Member {
 // export function deleteTodoList(): boolean {
 //   return true;
 // }
+
+export function getBookListAll(): Book[] {
+  return bookList;
+}

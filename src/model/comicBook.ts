@@ -13,7 +13,7 @@ export default class ComicBook extends Book {
   }
 
   public info(): string {
-    return `${this.bno}, CookBook, ${this.title}, ${this.writer}, 내구도: ${this.durability}`;
+    return `${this.bno}, ComicBook, ${this.title}, ${this.writer}, 내구도: ${this.durability}`;
   }
 
   public minusDurability(): void {

@@ -19,7 +19,10 @@ function runApp(): void {
           if (member === null) {
             break;
           }
-          runApp2(member);
+          const result = runApp2(member);
+          if (result === 99) {
+            return;
+          }
           break;
         case 99:
           return;

@@ -10,7 +10,7 @@ class ComicBook extends book_1.default {
         this.durability = durability;
     }
     info() {
-        return `${this.bno}, CookBook, ${this.title}, ${this.writer}, 내구도: ${this.durability}`;
+        return `${this.bno}, ComicBook, ${this.title}, ${this.writer}, 내구도: ${this.durability}`;
     }
     minusDurability() {
         this.durability--;

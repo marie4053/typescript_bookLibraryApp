@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const readline_sync_1 = __importDefault(require("readline-sync"));
 const memberApi_1 = require("../modules/memberApi");
+const commandApp2_1 = __importDefault(require("./commandApp2"));
 // import {} from '../modules/Api';
 // 윈도우에서 한글 입력 안되는 경우 chcp 65001
 readline_sync_1.default.setDefaultOptions({ encoding: 'utf8' });
@@ -16,7 +17,14 @@ function runApp() {
             const menuNum = Number(input);
             switch (menuNum) {
                 case 1:
-                    login();
+                    const member = login();
+                    if (member === null) {
+                        break;
+                    }
+                    const result = (0, commandApp2_1.default)(member);
+                    if (result === 99) {
+                        return;
+                    }
                     break;
                 case 99:
                     return;
@@ -32,7 +40,7 @@ function runApp() {
     }
 }
 function printMenu() {
-    console.log('<TodoList App>');
+    console.log('<도서 관리 프로그램>');
     console.log('1. 로그인');
     console.log('99. 종료하기');
 }
@@ -43,9 +51,10 @@ function login() {
         const password = readline_sync_1.default.question(`비밀번호를 입력하세요.\n> `);
         if (password !== member.password) {
             console.log('로그인에 실패하였습니다.');
-            return false;
+            return null;
         }
         console.log('로그인에 성공하였습니다.');
+        return member;
     }
     catch (error) {
         if (error instanceof Error) {
@@ -54,8 +63,7 @@ function login() {
         else {
             console.log('알 수 없는 오류가 발생했습니다.');
         }
-        return false;
+        return null;
     }
-    return true;
 }
 exports.default = runApp;
