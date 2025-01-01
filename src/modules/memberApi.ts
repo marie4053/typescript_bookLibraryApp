@@ -1,15 +1,11 @@
 import Member from '../model/member';
 import { Book, ITBook, CookBook, ComicBook } from '../model/book';
-import exp from 'constants';
-import { get } from 'http';
 
 const memberList: Member[] = [
   new Member(1, 'user1', '1234', '홍길동', [], ['C']),
   new Member(2, 'user2', '1234', '최길동', [], []),
-  new Member(3, 'user3', '1234', '홍길동', [], ['C']),
+  new Member(3, 'user3', '1234', '박길동', [], ['C']),
 ];
-
-// 책 번호 enum?
 
 const bookList: Book[] = [
   new ITBook(100, '모던 자바스크립트', '이웅모', memberList[0], 'Javascript'),
@@ -39,22 +35,9 @@ export function getMemberList(memberId: string): Member {
   return member;
 }
 
-// export function getTodoList(no: number): TodoItem | null {
-//   let item: TodoItem = {};
-//   return item;
-// }
-
-// export function createTodoList(newItem: TodoItem): boolean {
-//   return true;
-// }
-
-// export function updateTodoList(): boolean {
-//   return true;
-// }
-
-// export function deleteTodoList(): boolean {
-//   return true;
-// }
+export function removeBook(mIdex: number, bno: number) {
+  console.log(memberList[mIdex].borrowBookList);
+}
 
 export function getBookListAll(): Book[] {
   return bookList;
@@ -88,3 +71,24 @@ export function borrowBook(memberId: string, bno: number): boolean {
   console.log('대출이 완료되었습니다.');
   return true;
 }
+
+// export function returnBook(memberId: string, bno: number): boolean {
+//   try {
+//     const mIndex = memberList.findIndex(
+//       (member) => member.memberId === memberId
+//     );
+//     const myBookList = memberList[mIndex].borrowBookList;
+//     console.log(myBookList[0]);
+//     const bIndex = bookList.findIndex((book) => book.bno === bno);
+//     // const bookIndex = memberList[mIndex].borrowBookList.findIndex((book)=>)
+//     // 1) memberList - borrowBookList에 해당 책 빼주기
+//     // memberList[mIndex].borrowBookList.splice(bookList[bIndex]);
+//     // 2) bookList - owner에 null
+//     bookList[bIndex].owner = null;
+//     console.log(`${bookList[mIndex]}이 반납되었습니다.`);
+//   } catch (error) {
+//     console.log('반납에 실패하였습니다.');
+//     return false;
+//   }
+//   return true;
+// }

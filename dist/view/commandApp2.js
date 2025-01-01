@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const readline_sync_1 = __importDefault(require("readline-sync"));
 const memberApi_1 = require("../modules/memberApi");
-// import {} from '../modules/Api';
 // 윈도우에서 한글 입력 안되는 경우 chcp 65001
 readline_sync_1.default.setDefaultOptions({ encoding: 'utf8' });
 function runApp2(member) {
@@ -29,10 +28,16 @@ function runApp2(member) {
                     console.log(`\n<대출 가능한 도서 리스트>`);
                     const availableBookList = (0, memberApi_1.getBookList)();
                     showBookList(availableBookList);
-                    const bno = Number(readline_sync_1.default.question('빌릴 책을 입력하세요.\n> '));
-                    (0, memberApi_1.borrowBook)(member.memberId, bno);
+                    const bnoBorrow = Number(readline_sync_1.default.question('빌릴 책을 입력하세요.\n> '));
+                    (0, memberApi_1.borrowBook)(member.memberId, bnoBorrow);
+                    // removeBook(1, 100);
                     break;
                 case 4:
+                    console.log(`\n<반납할 도서 리스트>`);
+                    const toReturnBookList = (0, memberApi_1.getBookList)(member.memberId);
+                    showBookList(toReturnBookList, member);
+                    const bnoToReturn = Number(readline_sync_1.default.question('반납할 책을 입력하세요.\n> '));
+                    (0, memberApi_1.returnBook)(member.memberId, bnoToReturn);
                     break;
                 case 5:
                     break;

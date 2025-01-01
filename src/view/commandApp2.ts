@@ -2,13 +2,14 @@ import reader from 'readline-sync';
 import Member from '../model/member';
 import { Book } from '../model/book';
 import {
-  getBookListAll,
-  getBookList,
   getMemberList,
   getMemberListAll,
+  removeBook,
+  getBookListAll,
+  getBookList,
   borrowBook,
+  // returnBook,
 } from '../modules/memberApi';
-// import {} from '../modules/Api';
 
 // 윈도우에서 한글 입력 안되는 경우 chcp 65001
 reader.setDefaultOptions({ encoding: 'utf8' });
@@ -34,10 +35,19 @@ function runApp2(member: Member): number {
           console.log(`\n<대출 가능한 도서 리스트>`);
           const availableBookList = getBookList();
           showBookList(availableBookList);
-          const bno = Number(reader.question('빌릴 책을 입력하세요.\n> '));
-          borrowBook(member.memberId, bno);
+          const bnoBorrow = Number(
+            reader.question('빌릴 책을 입력하세요.\n> ')
+          );
+          borrowBook(member.memberId, bnoBorrow);
           break;
         case 4:
+          // console.log(`\n<반납할 도서 리스트>`);
+          // const toReturnBookList = getBookList(member.memberId);
+          // showBookList(toReturnBookList, member);
+          // const bnoToReturn = Number(
+          //   reader.question('반납할 책을 입력하세요.\n> ')
+          // );
+          // returnBook(member.memberId, bnoToReturn);
           break;
         case 5:
           break;
